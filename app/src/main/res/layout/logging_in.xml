@@ -26,8 +26,7 @@
         android:ems="10"
         android:id="@+id/UserName"
         android:layout_below="@+id/username"
-        android:layout_centerHorizontal="true"
-        android:singleLine="false" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -56,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="78dp"
         android:id="@+id/username"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textColor="@android:color/background_light"
         android:layout_below="@+id/textView"
         android:layout_alignStart="@+id/UserName" />
@@ -66,19 +65,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/password"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textColor="@android:color/background_light"
         android:layout_below="@+id/UserName"
         android:layout_alignStart="@+id/UserName" />
+
+    <TextView
+        android:text="or"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6"
+        android:layout_below="@+id/login"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp" />
 
     <Button
         android:text="Sign Up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/login"
-        android:layout_alignStart="@+id/login"
         android:id="@+id/SignUp"
-        android:layout_alignEnd="@+id/login"
-        android:background="@color/colorPrimary" />
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/login"
+        android:layout_alignEnd="@+id/login" />
 
 </RelativeLayout>
