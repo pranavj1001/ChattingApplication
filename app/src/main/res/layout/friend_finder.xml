@@ -37,7 +37,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/addUser"
         android:layout_below="@+id/friendUserName"
-        android:layout_toStartOf="@+id/cancel" />
+        android:layout_toStartOf="@+id/cancel"
+        android:background="@color/colorPrimary"
+        android:layout_margin="5dp" />
 
     <Button
         android:text="Cancel"
@@ -45,5 +47,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/cancel"
         android:layout_below="@+id/friendUserName"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorPrimary"
+        android:layout_margin="5dp" />
 </RelativeLayout>

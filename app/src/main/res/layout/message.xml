@@ -48,7 +48,8 @@
             android:text="Send"
             android:layout_width="78dp"
             android:layout_height="wrap_content"
-            android:id="@+id/button" />
+            android:id="@+id/button"
+            android:background="@color/colorPrimary" />
 
     </LinearLayout>
 </RelativeLayout>
