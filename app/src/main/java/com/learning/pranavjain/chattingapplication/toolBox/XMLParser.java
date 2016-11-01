@@ -5,7 +5,9 @@ import android.util.Log;
 import com.learning.pranavjain.chattingapplication.interfacer.Update;
 import com.learning.pranavjain.chattingapplication.typo.InfoOfFriends;
 import com.learning.pranavjain.chattingapplication.typo.InfoOfMessage;
+import com.learning.pranavjain.chattingapplication.typo.InfoOfStatus;
 
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -61,6 +63,43 @@ public class XMLParser extends DefaultHandler {
         this.update.updateData((InfoOfMessage[]) messages, friends, unApprovedFriends, userKey);
         super.endDocument();
 
+    }
+
+    @Override
+    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+
+        if(localName == "friend"){
+
+            InfoOfFriends friend = new InfoOfFriends();
+            friend.userName = attributes.getValue(InfoOfFriends.userName);
+            String status = attributes.getValue(InfoOfFriends.status);
+            friend.port = attributes.getValue(InfoOfFriends.port);
+
+            if(status != null && status.equals("online")){
+                friend.status = String.valueOf(InfoOfStatus.ONLINE);
+                mOnlineFriends.add(friend);
+            }else if(status.equals("unApproved")){
+                friend.status = String.valueOf(InfoOfStatus.UNAPPROVED);
+                mUnApprovedFriends.add(friend);
+            }else {
+                friend.status = String.valueOf(InfoOfStatus.OFFLINE);
+                mFriends.add(friend);
+            }
+
+        }else if(localName == "user"){
+            this.userKey = attributes.getValue(InfoOfFriends.userKey);
+        }
+
+        super.startElement(uri, localName, qName, attributes);
+    }
+
+    @Override
+    public void startDocument() throws SAXException {
+
+        this.mFriends.clear();
+        this.mOnlineFriends.clear();
+        this.mUnreadMessages.clear();
+        super.startDocument();
 
     }
 
