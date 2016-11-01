@@ -2,6 +2,7 @@ package com.learning.pranavjain.chattingapplication.toolBox;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -23,7 +24,7 @@ public class StorageManipulator extends SQLiteOpenHelper {
             "CREATE TABLE " + Table_name_message
             + " (" + _Id + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + Message_Receiver + " VARCHAR(25), "
-            + Message_Sender + " VARCHAR(25)";
+            + Message_Sender + " VARCHAR(25))";
 
     public static final String Table_Message_Drop = "DROP TABLE IF EXISTS " + Table_name_message;
 
@@ -55,8 +56,20 @@ public class StorageManipulator extends SQLiteOpenHelper {
         }
     }
 
+    public Cursor get(String sender, String receiver){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String selectQuery = "SELECT * FROM " + Table_name_message + " WHERE "
+                + Message_Sender + " LIKE " + sender + " AND "
+                + Message_Receiver + " LIKE " + receiver
+                + " ORDER BY " + _Id + " ASC ";
+
+        return null;
+    }
+
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL(Table_Message_Drop);
     }
 }
