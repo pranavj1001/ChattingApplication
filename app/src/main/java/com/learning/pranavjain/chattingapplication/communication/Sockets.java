@@ -5,11 +5,15 @@ import android.util.Log;
 import com.learning.pranavjain.chattingapplication.interfacer.Socket;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Created by Pranav Jain on 11/2/2016.
@@ -54,6 +58,7 @@ public class Sockets implements Socket {
 
             }catch (Exception e){
                 Log.e("ERROR in connection","");
+                e.printStackTrace();
             }
 
             super.run();
@@ -62,7 +67,40 @@ public class Sockets implements Socket {
 
     @Override
     public String sendHTTPRequest(String Params) {
-        return null;
+
+        URL url;
+        String result = "";
+        try {
+
+            url = new URL(AUTHENTICATION_SERVER_ADDRESS);
+            HttpURLConnection httpURLConnection;
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setDoOutput(true);
+
+            PrintWriter out = new PrintWriter(httpURLConnection.getOutputStream());
+
+            out.println(Params);
+            out.close();
+
+            BufferedReader in =  new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
+            String inputLine;
+
+            while((inputLine = in.readLine()) != null){
+                result = result.concat(inputLine);
+            }
+            in.close();
+
+        }catch (MalformedURLException e){
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(result.length() == 0){
+            result = HTTP_REQUEST_FAILED;
+        }
+
+        return result;
     }
 
     @Override
