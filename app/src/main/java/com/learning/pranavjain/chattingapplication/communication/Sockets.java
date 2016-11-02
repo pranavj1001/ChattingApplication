@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Created by Pranav Jain on 11/2/2016.
@@ -140,6 +141,15 @@ public class Sockets implements Socket {
 
     @Override
     public void exit() {
+        for(Iterator<Socket> iterator = sockets.values().iterator(); iterator.hasNext();){
+            java.net.Socket socket = (java.net.Socket) iterator.next();
+            try{
+                socket.shutdownInput();
+                socket.shutdownOutput();
+                socket.close();
+            }catch (Exception e){
 
+            }
+        }
     }
 }
