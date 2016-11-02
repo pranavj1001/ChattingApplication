@@ -105,7 +105,32 @@ public class Sockets implements Socket {
 
     @Override
     public int startListeningPort(int Port) {
-        return 0;
+
+        listening = true;
+
+        try {
+            serverSocket = new ServerSocket();
+            this.listeningPort = Port;
+        }catch (IOException e){
+            return 0;
+        }
+
+        while(listening){
+            try{
+                new ReceiveConnection((Socket) serverSocket.accept()).start();
+            }catch (IOException e){
+                return 2;
+            }
+        }
+
+        try{
+            serverSocket.close();
+        }catch (IOException e){
+            Log.e("Exception server Socket"," when closing");
+            return 3;
+        }
+
+        return 1;
     }
 
     @Override
